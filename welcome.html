@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Welcome</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app-layout">
+
+    <!-- Left sidebar menu -->
+    <aside class="sidebar" id="sidebar" aria-label="Main menu">
+      <div class="sidebar-header">
+        <span class="app-name">DemoApp</span>
+      </div>
+
+      <nav>
+        <ul class="menu">
+          <li class="menu-item">
+            <a href="#section-home" class="menu-link" aria-current="page">Home</a>
+          </li>
+          <li class="menu-item">
+            <a href="#section-profile" class="menu-link">Profile</a>
+          </li>
+          <li class="menu-item">
+            <a href="#section-settings" class="menu-link">Settings</a>
+          </li>
+          <li class="menu-item">
+            <a href="#section-about" class="menu-link">About</a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button type="button" id="logout-btn" class="btn">Logout</button>
+      </div>
+    </aside>
+
+    <!-- Backdrop for the mobile drawer -->
+    <div class="backdrop" id="backdrop" hidden></div>
+
+    <!-- Main content area -->
+    <div class="main-area">
+      <!-- Top bar (mobile only): opens the sidebar drawer -->
+      <header class="topbar">
+        <button
+          type="button"
+          id="menu-toggle-btn"
+          class="icon-btn"
+          aria-label="Open menu"
+          aria-expanded="false"
+          aria-controls="sidebar"
+        >
+          <span aria-hidden="true">&#9776;</span>
+        </button>
+        <span class="topbar-title">DemoApp</span>
+      </header>
+
+      <main class="content">
+        <section id="section-home" class="content-section">
+          <div class="card">
+            <h1 id="welcome-heading"><!-- Filled by script.js --></h1>
+            <p>You are logged in to the demo app.</p>
+          </div>
+        </section>
+
+        <section id="section-profile" class="content-section" hidden>
+          <div class="card">
+            <h1>Profile</h1>
+            <p>Username: <strong id="profile-username"><!-- Filled by script.js --></strong></p>
+          </div>
+        </section>
+
+        <section id="section-settings" class="content-section" hidden>
+          <div class="card">
+            <h1>Settings</h1>
+            <p>There are no settings in this demo yet.</p>
+          </div>
+        </section>
+
+        <section id="section-about" class="content-section" hidden>
+          <div class="card">
+            <h1>About</h1>
+            <p>
+              A minimal front-end-only login demo: plain HTML, CSS, and vanilla
+              JavaScript with a <code>sessionStorage</code> session flag.
+            </p>
+          </div>
+        </section>
+      </main>
+    </div>
+
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

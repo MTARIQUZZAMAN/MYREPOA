@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="page">
+    <section class="card" aria-labelledby="login-heading">
+      <h1 id="login-heading">Login</h1>
+
+      <form id="login-form" novalidate>
+        <div class="form-field">
+          <label for="username">Username</label>
+          <input
+            type="text"
+            id="username"
+            name="username"
+            autocomplete="username"
+            aria-describedby="username-error form-error"
+          >
+          <p class="field-error" id="username-error" hidden></p>
+        </div>
+
+        <div class="form-field">
+          <label for="phone">Phone number</label>
+          <input
+            type="tel"
+            id="phone"
+            name="phone"
+            autocomplete="tel"
+            aria-describedby="phone-error form-error"
+          >
+          <p class="field-error" id="phone-error" hidden></p>
+        </div>
+
+        <p class="form-error" id="form-error" role="alert" hidden></p>
+
+        <button type="submit" id="login-btn" class="btn">Login</button>
+      </form>
+
+      <aside class="hint-box" aria-label="Demo credentials">
+        Demo login — username: <code>tarik</code>, phone: <code>123456</code>
+      </aside>
+    </section>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>
