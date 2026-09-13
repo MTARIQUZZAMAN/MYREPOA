@@ -29,6 +29,9 @@
           <li class="menu-item">
             <a href="#section-about" class="menu-link">About</a>
           </li>
+          <li class="menu-item">
+            <a href="#section-clock" class="menu-link">Clock</a>
+          </li>
         </ul>
       </nav>
 
@@ -61,6 +64,7 @@
         <section id="section-home" class="content-section">
           <div class="card">
             <h1 id="welcome-heading"><!-- Filled by script.js --></h1>
+            <p class="clock" id="clock" aria-label="Current time" hidden><!-- Filled by script.js --></p>
             <p>You are logged in to the demo app.</p>
           </div>
         </section>
@@ -86,6 +90,58 @@
               A minimal front-end-only login demo: plain HTML, CSS, and vanilla
               JavaScript with a <code>sessionStorage</code> session flag.
             </p>
+          </div>
+        </section>
+
+        <section id="section-clock" class="content-section" hidden>
+          <div class="card clock-card">
+            <h1>Clock</h1>
+            <div class="antique-clock">
+              <svg id="antique-clock" viewBox="0 0 200 220" role="img" aria-label="Antique bedside clock with roman numerals showing the current time">
+                <defs>
+                  <linearGradient id="woodGrad" x1="0" y1="0" x2="1" y2="1">
+                    <stop offset="0" stop-color="#8b5a2b"/>
+                    <stop offset="0.5" stop-color="#5c3a1e"/>
+                    <stop offset="1" stop-color="#7a4a22"/>
+                  </linearGradient>
+                  <radialGradient id="brassGrad" cx="0.35" cy="0.35" r="0.9">
+                    <stop offset="0" stop-color="#f7e7a8"/>
+                    <stop offset="0.55" stop-color="#c9a227"/>
+                    <stop offset="1" stop-color="#8a6d1d"/>
+                  </radialGradient>
+                  <radialGradient id="faceGrad" cx="0.5" cy="0.4" r="0.8">
+                    <stop offset="0" stop-color="#faf3e0"/>
+                    <stop offset="0.8" stop-color="#f0e4c8"/>
+                    <stop offset="1" stop-color="#dcc9a3"/>
+                  </radialGradient>
+                </defs>
+
+                <!-- top handle -->
+                <circle cx="100" cy="14" r="8" fill="none" stroke="url(#brassGrad)" stroke-width="4"/>
+                <rect x="94" y="20" width="12" height="10" fill="#5c3a1e"/>
+
+                <!-- wooden plinth base (drawn first so the case overlaps it) -->
+                <path d="M 52 206 L 148 206 L 136 192 L 64 192 Z" fill="url(#woodGrad)" stroke="#3f2a14" stroke-width="1.5"/>
+
+                <!-- wooden case -->
+                <circle cx="100" cy="112" r="88" fill="url(#woodGrad)" stroke="#3f2a14" stroke-width="2"/>
+
+                <!-- brass bezel + aged face -->
+                <circle cx="100" cy="112" r="79" fill="url(#brassGrad)"/>
+                <circle cx="100" cy="112" r="72" fill="url(#faceGrad)" stroke="#b8a06a" stroke-width="1"/>
+
+                <!-- numerals + ticks injected by script.js -->
+                <g id="clock-ticks"></g>
+                <g id="clock-numerals"></g>
+
+                <!-- hands (pivot at 100,112; rotated by script.js) -->
+                <line id="hour-hand" x1="100" y1="112" x2="100" y2="80" stroke="#3b2a1a" stroke-width="5" stroke-linecap="round"/>
+                <line id="minute-hand" x1="100" y1="112" x2="100" y2="60" stroke="#3b2a1a" stroke-width="3.5" stroke-linecap="round"/>
+                <line id="second-hand" x1="100" y1="123" x2="100" y2="55" stroke="#8a1f1f" stroke-width="1.5" stroke-linecap="round"/>
+                <circle cx="100" cy="112" r="5.5" fill="url(#brassGrad)" stroke="#6b5416" stroke-width="1"/>
+              </svg>
+            </div>
+            <p class="clock-digital" id="clock-digital" hidden><!-- Filled by script.js --></p>
           </div>
         </section>
       </main>

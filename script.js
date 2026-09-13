@@ -167,6 +167,121 @@ function initMobileSidebar() {
 }
 
 // ---------------------------------------------------------------------------
+// Welcome page: live clock in the Home section
+// ---------------------------------------------------------------------------
+function initClock() {
+  const clockEl = document.getElementById("clock");
+  if (!clockEl) return;
+  if (clockEl.dataset.clockInitialized) return; // guard: bfcache restore
+  clockEl.dataset.clockInitialized = "true";
+
+  function renderTime() {
+    const now = new Date();
+    const time = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+    const date = now.toLocaleDateString([], { weekday: "long", year: "numeric", month: "long", day: "numeric" });
+    clockEl.textContent = time + " — " + date;
+  }
+
+  renderTime();
+  clockEl.hidden = false;
+
+  // Re-sync at :00 seconds — one setInterval(…, 1000) left unattended
+  // can drift over long sessions; this pattern doesn't.
+  (function scheduleNextTick() {
+    setTimeout(function () {
+      renderTime();
+      scheduleNextTick();
+    }, 1000 - (Date.now() % 1000));
+  })();
+}
+
+// ---------------------------------------------------------------------------
+// Welcome page: antique analog clock (roman numerals, wooden case, ticking hands)
+// ---------------------------------------------------------------------------
+const SVG_NS = "http://www.w3.org/2000/svg";
+
+function initAnalogClock() {
+  const svg = document.getElementById("antique-clock");
+  if (!svg) return;
+  if (svg.dataset.clockInitialized) return; // guard: bfcache restore
+  svg.dataset.clockInitialized = "true";
+
+  const CX = 100;
+  const CY = 112;
+  const ROMAN = ["XII", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI"];
+
+  const ticksGroup = document.getElementById("clock-ticks");
+  const numeralsGroup = document.getElementById("clock-numerals");
+  const hourHand = document.getElementById("hour-hand");
+  const minuteHand = document.getElementById("minute-hand");
+  const secondHand = document.getElementById("second-hand");
+  const digital = document.getElementById("clock-digital");
+
+  // Minor tick marks (60) + major ones at the hours.
+  if (ticksGroup) {
+    for (let i = 0; i < 60; i++) {
+      const angle = (i * 6 * Math.PI) / 180;
+      const major = i % 5 === 0;
+      const rOuter = 69;
+      const rInner = major ? 63 : 66.5;
+      const tick = document.createElementNS(SVG_NS, "line");
+      tick.setAttribute("x1", (CX + rInner * Math.sin(angle)).toFixed(2));
+      tick.setAttribute("y1", (CY - rInner * Math.cos(angle)).toFixed(2));
+      tick.setAttribute("x2", (CX + rOuter * Math.sin(angle)).toFixed(2));
+      tick.setAttribute("y2", (CY - rOuter * Math.cos(angle)).toFixed(2));
+      tick.setAttribute("stroke", major ? "#4a3319" : "#8a744d");
+      tick.setAttribute("stroke-width", major ? "2" : "1");
+      ticksGroup.appendChild(tick);
+    }
+  }
+
+  // Roman numerals I–XII.
+  if (numeralsGroup) {
+    for (let i = 0; i < 12; i++) {
+      const angle = (i * 30 * Math.PI) / 180;
+      const numeral = document.createElementNS(SVG_NS, "text");
+      numeral.setAttribute("x", (CX + 55 * Math.sin(angle)).toFixed(2));
+      numeral.setAttribute("y", (CY - 55 * Math.cos(angle)).toFixed(2));
+      numeral.setAttribute("text-anchor", "middle");
+      numeral.setAttribute("dominant-baseline", "central");
+      numeral.setAttribute("class", "clock-numeral");
+      numeral.textContent = ROMAN[i];
+      numeralsGroup.appendChild(numeral);
+    }
+  }
+
+  function setRotation(el, degrees) {
+    if (el) el.setAttribute("transform", "rotate(" + degrees + " " + CX + " " + CY + ")");
+  }
+
+  function tick() {
+    const now = new Date();
+    const h = now.getHours() % 12;
+    const m = now.getMinutes();
+    const s = now.getSeconds();
+
+    setRotation(hourHand, 30 * h + 0.5 * m);
+    setRotation(minuteHand, 6 * m + 0.1 * s);
+    setRotation(secondHand, 6 * s); // discrete antique-style tick
+
+    if (digital) {
+      digital.textContent = now.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" });
+    }
+  }
+
+  tick();
+  if (digital) digital.hidden = false;
+
+  // Re-sync at :00 seconds — no drift over long sessions.
+  (function scheduleNextTick() {
+    setTimeout(function () {
+      tick();
+      scheduleNextTick();
+    }, 1000 - (Date.now() % 1000));
+  })();
+}
+
+// ---------------------------------------------------------------------------
 // Welcome page logic (runs only when the logout button is present)
 // ---------------------------------------------------------------------------
 function initWelcomePage() {
@@ -193,6 +308,8 @@ function initWelcomePage() {
 
   initSidebarMenu();
   initMobileSidebar();
+  initClock();
+  initAnalogClock();
 
   // Guard: on a bfcache restore this runs again — don't stack listeners.
   if (logoutBtn.dataset.logoutInitialized) return;

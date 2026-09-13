@@ -125,7 +125,48 @@ input:focus {
 
 /* Welcome page */
 #welcome-heading {
-  margin-bottom: 20px;
+  margin-bottom: 8px;
+}
+
+/* Live clock (Home section) */
+.clock {
+  margin: 0 0 16px;
+  font-size: 1.25rem;
+  font-variant-numeric: tabular-nums; /* digits don't jitter as seconds tick */
+  color: #1d4ed8;
+}
+
+/* Antique bedside clock (Clock section) */
+.clock-card {
+  max-width: 420px;
+  text-align: center;
+}
+
+.antique-clock {
+  display: flex;
+  justify-content: center;
+  padding: 8px 0 4px;
+}
+
+.antique-clock svg {
+  width: 100%;
+  max-width: 260px;
+  height: auto;
+  filter: drop-shadow(0 6px 10px rgba(63, 42, 20, 0.35));
+}
+
+.clock-numeral {
+  font-family: "Times New Roman", Georgia, "Playfair Display", serif;
+  font-size: 13px;
+  font-weight: 700;
+  fill: #4a3319;
+}
+
+.clock-digital {
+  margin: 10px 0 0;
+  font-variant-numeric: tabular-nums;
+  color: #52525b;
+  font-size: 0.9rem;
 }
 
 /* --------------------------------------------------------------------------

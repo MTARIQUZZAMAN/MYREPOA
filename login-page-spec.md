@@ -45,7 +45,7 @@ A minimal, front-end-only login demo built with plain HTML, CSS, and vanilla Jav
 ```
 
 - **3-file separation** for the login page (`index.html`, `style.css`, `script.js`), plus `welcome.html` for the post-login page.
-- The post-login page uses an **app layout**: a fixed **left sidebar menu** plus a main content area with switchable sections (Home / Profile / Settings / About). On screens ≤640px the sidebar becomes a slide-in drawer behind a hamburger button.
+- The post-login page uses an **app layout**: a fixed **left sidebar menu** plus a main content area with switchable sections (Home / Profile / Settings / About / Clock). On screens ≤640px the sidebar becomes a slide-in drawer behind a hamburger button.
 - One **shared** `style.css` serves both pages (user decision).
 - One `script.js` serves both pages; page-specific behavior is gated by DOM detection (e.g., if `#login-form` exists → run login logic; if `#logout-btn` exists → run welcome-page logic). This avoids a second JS file while keeping the welcome page functional.
 - No external dependencies, no CDN links, no fonts fetched from the network.
@@ -113,9 +113,9 @@ const USERS = [
 
 ### 4.1 Content & left sidebar menu
 
-- App layout with a **left sidebar menu** (user request): app name header, then menu items **Home / Profile / Settings / About**.
+- App layout with a **left sidebar menu** (user request): app name header, then menu items **Home / Profile / Settings / About / Clock**.
 - Menu items switch between content sections shown in the main area (in-page via `hidden`, `preventDefault()` on the anchor clicks — no routing, no page reloads). The active item is highlighted and marked with `aria-current="page"`.
-- Main area sections: **Home** (greeting `Welcome, tarik!` with username injected from the session flag), **Profile** (shows the session username), **Settings** (placeholder), **About** (demo description). The **Logout** button moved to the sidebar footer.
+- Main area sections: **Home** (greeting `Welcome, tarik!` with username injected from the session flag, plus a **live clock** — `HH:MM:SS — Weekday, Month Day, Year`, ticking at whole seconds), **Profile** (shows the session username), **Settings** (placeholder), **About** (demo description). The **Logout** button moved to the sidebar footer.
 - No session metadata, no timestamps.
 
 ### 4.2 Access guard
@@ -169,8 +169,12 @@ const USERS = [
 | Required error (phone) | Phone number is required |
 | Hint box | Demo login — username: tarik, phone: 123456 |
 | Sidebar app name | DemoApp |
-| Menu items | Home / Profile / Settings / About |
+| Menu items | Home / Profile / Settings / About / Clock |
 | Welcome heading | Welcome, {username}! |
+| Home clock | {HH:MM:SS} — {Weekday, Month Day, Year} |
+| Clock menu item | Clock |
+| Analog clock face | Wooden case, brass bezel, roman numerals I–XII (aria-label describes it) |
+| Digital time under analog clock | {HH:MM:SS} (locale 2-digit format) |
 | Logout button | Logout |
 
 ---
@@ -191,6 +195,9 @@ const USERS = [
 12. **Mobile viewport (~320–400px)** → form fully usable, no overflow.
 13. **Sidebar navigation** → menu items switch the main-area sections in-page; active item highlighted.
 14. **Mobile sidebar** → hamburger opens the drawer; backdrop click or Escape closes it; picking a menu item closes it too.
+15. **Live clock** → Home section shows `HH:MM:SS — Weekday, Month Day, Year`, ticking every second (aligned to whole seconds; no drift over long sessions).
+16. **Antique analog clock** → Clock menu item shows an SVG bedside clock: wooden case + brass bezel + roman numerals, with hour/minute/second hands ticking at whole seconds.
+17. **Independent clocks** → the Home digital clock and the analog clock tick independently; leaving one section open while viewing the other keeps both running.
 
 ---
 
