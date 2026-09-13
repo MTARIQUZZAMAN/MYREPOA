@@ -1,0 +1,136 @@
+/* Base / reset-ish */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  background: #f4f4f5;
+  color: #18181b;
+}
+
+/* Page layout: center the card */
+.page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 16px;
+}
+
+.card {
+  width: 100%;
+  max-width: 360px;
+  background: #ffffff;
+  border: 1px solid #d4d4d8;
+  border-radius: 8px;
+  padding: 24px;
+}
+
+h1 {
+  margin: 0 0 16px;
+  font-size: 1.5rem;
+}
+
+/* Form fields */
+.form-field {
+  margin-bottom: 16px;
+}
+
+label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+input {
+  width: 100%;
+  height: 44px; /* comfortable touch target */
+  padding: 0 12px;
+  font-size: 1rem;
+  border: 1px solid #a1a1aa;
+  border-radius: 6px;
+  background: #ffffff;
+  color: inherit;
+}
+
+input:focus {
+  outline: 2px solid #2563eb;
+  outline-offset: 1px;
+}
+
+/* Error states */
+.input-error {
+  border-color: #dc2626;
+  background: #fef2f2;
+}
+
+.field-error {
+  margin: 6px 0 0;
+  font-size: 0.875rem;
+  color: #dc2626;
+}
+
+.form-error {
+  margin: 0 0 16px;
+  padding: 10px 12px;
+  font-size: 0.9rem;
+  color: #b91c1c;
+  background: #fef2f2;
+  border: 1px solid #fca5a5;
+  border-radius: 6px;
+}
+
+/* Buttons */
+.btn {
+  width: 100%;
+  height: 44px;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #ffffff;
+  background: #2563eb;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.btn:hover {
+  background: #1d4ed8;
+}
+
+.btn:focus-visible {
+  outline: 2px solid #1e3a8a;
+  outline-offset: 2px;
+}
+
+/* Demo-credentials hint box */
+.hint-box {
+  margin-top: 16px;
+  padding: 10px 12px;
+  font-size: 0.875rem;
+  color: #52525b;
+  background: #fafafa;
+  border: 1px dashed #a1a1aa;
+  border-radius: 6px;
+}
+
+.hint-box code {
+  font-family: ui-monospace, "Cascadia Code", Consolas, monospace;
+  color: #18181b;
+}
+
+/* Welcome page */
+#welcome-heading {
+  margin-bottom: 20px;
+}
+
+/* Small screens: keep everything usable at ~320px */
+@media (max-width: 400px) {
+  .card {
+    padding: 16px;
+  }
+}
